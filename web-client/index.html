@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Nginx proxy frontend</title>
+    <script>
+      window.onload = () => {
+        fetch('/api')
+          .then((response) => {
+            const json = response.json()
+            if (response.ok) {
+              return json
+            }
+            return Promise.reject(new Error('Something went wrong.'))
+          })
+          .then(({ data }) => {
+            document.getElementById('data').innerHTML = data
+          })
+          .catch((error) => {
+            document.getElementById('error').innerHTML = (error && error.message) || 'Something went wrong.'
+          })
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Docker nginx reverse proxy app</h1>
+    <p id="data"></p>
+    <p id="error"></p>
+  </body>
+</html>
