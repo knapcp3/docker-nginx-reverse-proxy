@@ -1,0 +1,26 @@
+version: '3.7'
+
+services:
+  backend-service:
+    container_name: backend-service
+    build: ./backend-service
+    networks:
+      - nginx-proxy-network
+
+  web-client:
+    container_name: web-client
+    build: ./web-client
+    networks:
+      - nginx-proxy-network
+
+  nginx-proxy:
+    container_name: nginx-proxy
+    build: ./nginx-proxy
+    ports:
+      - 80:80
+    networks:
+      - nginx-proxy-network
+
+networks:
+  nginx-proxy-network:
+    driver: bridge
